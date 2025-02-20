@@ -33,3 +33,66 @@ const MODIFIED_SAMPLE_DATA_2 = R.pipe(
   R.groupBy((x) => x.age)
 );
 console.log(MODIFIED_SAMPLE_DATA_2);
+
+/**
+ * 3. パイプライン
+ * 複数の関数をパイプラインでつなげることができます。
+ */
+
+const SAMPLE_DATA_3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const MODIFIED_SAMPLE_DATA_3 = R.pipe(
+  SAMPLE_DATA_3,
+  R.map((x) => {
+    console.log("map", x);
+    return x;
+  }),
+  R.unique(),
+  R.take(3)
+);
+console.log(MODIFIED_SAMPLE_DATA_3);
+
+/** Functions */
+
+/**
+ * allPass
+ * すべての関数がtrueを返す場合にtrueを返します。
+ */
+const allPass_isEven = (x: number) => x % 2 === 0;
+const allPass_isPositive = (x: number) => x > 0;
+const allPass_fns = [allPass_isEven, allPass_isPositive];
+console.log(R.allPass(2, allPass_fns));
+console.log(R.allPass(3, allPass_fns));
+
+/**
+ * anyPass
+ * いずれかの関数がtrueを返す場合にtrueを返します。
+ */
+const anyPass_isEven = (x: number) => x % 2 === 0;
+const anyPass_isPositive = (x: number) => x > 0;
+const anyPass_fns = [anyPass_isEven, anyPass_isPositive];
+console.log(R.anyPass(2, anyPass_fns));
+console.log(R.anyPass(3, anyPass_fns));
+
+/**
+ * chunk
+ * 配列を指定したサイズで分割します。
+ */
+console.log(R.chunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 3));
+
+/**
+ * concat
+ * 配列を結合します。
+ */
+console.log(R.concat([1, 2, 3], [4, 5, 6]));
+
+/**
+ * countBy
+ * 配列の要素をカウントします。
+ */
+console.log(R.countBy(["a", "b", "c", "B", "A", "a"], R.toLowerCase()));
+
+/**
+ * difference
+ * 2つの配列の差分を取得します。
+ */
+console.log(R.pipe([1, 2, 3, 4], R.difference([3, 4, 5])));
